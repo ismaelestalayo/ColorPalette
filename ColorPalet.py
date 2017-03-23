@@ -1,4 +1,6 @@
 from PIL import Image, ImageFont, ImageDraw
+import tkinter
+from tkinter.filedialog import askopenfilename
 import random
 #from matplotlib import pyplot as plt
 
@@ -11,17 +13,23 @@ def rgb2Hex(rgb):
 
 def main():
 
-    r = random.randint(90, 200)
-    g = random.randint(90, 200)
-    b = random.randint(90, 200)
+    r = random.randint(0, 255)
+    if(r > 180):
+        r = random.randint(28, 35);
+
+    g = random.randint(0, 255)
+    b = random.randint(0, 255)
 
     rx = random.randint(-1, 1)
     gx = random.randint(-1, 1)
     bx = random.randint(-1, 1)
 
-    dr = random.choice( (0, 5, 10, 15, 20, 25) )
-    dg = random.choice( (0, 5, 10, 15, 20, 25) )
-    db = random.choice( (0, 5, 10, 15, 20, 25) )
+    dr = random.choice( (1, 5, 10, 15, 20, 25, 30) )
+    print(dr)
+    dg = random.choice( (1, 5, 10, 15, 20, 25, 30) )
+    print(dg)
+    db = random.choice( (1, 5, 10, 15, 20, 25, 30) )
+    print(db)
 
     x = 0
     for i in range(0, width):
@@ -65,3 +73,12 @@ im = Image.new("RGB", (900, 512), "black");
 width, length = im.size
 
 main()
+
+
+'''
+root = tkinter.Tk()
+root.withdraw()
+fileName = tkinter.filedialog.askopenfilename()
+jpg = Image.open(fileName)
+jpg.show()
+'''
