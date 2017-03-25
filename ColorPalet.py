@@ -94,8 +94,8 @@ def colorsHist():
 im = Image.new("RGB", (900, 500), "black");
 width, length = im.size
 
-#main()
-colorsHist()
+main()
+#colorsHist()
 
 
 '''
