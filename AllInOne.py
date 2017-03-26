@@ -114,7 +114,7 @@ def randomPalette():
 
     for i in range(0, 6):
         color = '#%02x%02x%02x' % colors[i][1]
-        draw.text((35+(i*150), length-80), str( im.getpixel((150*i, 0)) ), (0, 0, 0), font=font)
+        #draw.text((35+(i*150), length-80), str( im.getpixel((150*i, 0)) ), (0, 0, 0), font=font)
         draw.text((50+(i*150), length-30), rgb2Hex( im.getpixel((150*i, 0)) ), (0, 0, 0), font=font)
         i += 1
 
@@ -129,8 +129,7 @@ def randomGradient():
     r1 = r0 - 5*randomRGB(r0)
     g1 = g0 - 5*randomRGB(g0)
     b1 = b0 - 5*randomRGB(b0)
-    print(r0, g0, b0)
-    print(r1, g1, b1)
+
     im = Image.new("RGB", (750, 1334), "black");
     width, length = im.size
 
@@ -145,8 +144,8 @@ def randomGradient():
         g -= (g0-g1)/width
         b -= (b0-b1)/width
 
-    #im.show()
-    im.save("gradiente.jpg")
+    im.show()
+    #im.save("gradiente.jpg")
 
 def colorsHist():
     root = tkinter.Tk()
@@ -178,13 +177,13 @@ def colorsHist():
     #    plt.bar(idx, c[0], color = rgb2Hex(c[1]), edgecolor = rgb2Hex(c[1]))
     #plt.show()
 
-
+execfile("randomPalette.py")
 ###############################################################################
 ###############################################################################
 ###############################################################################
 
 
 #superRandomPalette()
-#randomPalette()
-randomGradient()
+randomPalette()
+#randomGradient()
 #colorsHist()
