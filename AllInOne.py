@@ -31,6 +31,7 @@ def superRandomPalette():
 
     im = Image.new("RGB", (900, 600), "black");
     width, length = im.size
+    z = width/6
 
     def rgbInit(x):
         if(x >= 210):
@@ -59,7 +60,7 @@ def superRandomPalette():
         for j in range (length):
             im.putpixel((i, j), (r, g, b))
 
-        if (i % 150 == 0):
+        if (i % z == 0):
             r += dr
             g += dg
             b += db
@@ -72,8 +73,8 @@ def superRandomPalette():
 
     for i in range(0, 6):
         color = '#%02x%02x%02x' % colors[i][1]
-        draw.text((35+(i*150), length-80), str( colors[i][1]), (0, 0, 0), font=font)
-        draw.text((50+(i*150), length-30), rgb2Hex( colors[i][1]), (0, 0, 0), font=font)
+        draw.text((35+(i*z), length-80), str( colors[i][1]), (0, 0, 0), font=font)
+        draw.text((50+(i*z), length-30), rgb2Hex( colors[i][1]), (0, 0, 0), font=font)
         i += 1
 
     im.show()
@@ -88,11 +89,9 @@ def randomPalette():
     dg = randomRGB(g)
     db = randomRGB(b)
 
-    print(r, g, b)
-    print(dr, dg, db)
-
     im = Image.new("RGB", (900, 600), "black");
     width, length = im.size
+    z = width/6
 
     #########################################
     x = 0
@@ -100,7 +99,7 @@ def randomPalette():
         for j in range (length):
             im.putpixel((i, j), (r, g, b))
 
-        if (i % 150 == 0):
+        if (i % z == 0):
             r -= dr
             g -= dg
             b -= db
@@ -114,11 +113,12 @@ def randomPalette():
 
     for i in range(0, 6):
         color = '#%02x%02x%02x' % colors[i][1]
-        #draw.text((35+(i*150), length-80), str( im.getpixel((150*i, 0)) ), (0, 0, 0), font=font)
-        draw.text((50+(i*150), length-30), rgb2Hex( im.getpixel((150*i, 0)) ), (0, 0, 0), font=font)
+        #draw.text((35+(i*z), length-80), str( im.getpixel((z*i, 0)) ), (0, 0, 0), font=font)
+        draw.text((50+(i*z), length-30), rgb2Hex( im.getpixel((z*i, 0)) ), (0, 0, 0), font=font)
         i += 1
 
     im.show()
+    #im.save("randomPalette.jpg")
 
 def randomGradient():
 
@@ -130,7 +130,7 @@ def randomGradient():
     g1 = g0 - 5*randomRGB(g0)
     b1 = b0 - 5*randomRGB(b0)
 
-    im = Image.new("RGB", (750, 1334), "black");
+    im = Image.new("RGB", (600, 600), "black");
     width, length = im.size
 
     r = r0
@@ -144,8 +144,8 @@ def randomGradient():
         g -= (g0-g1)/width
         b -= (b0-b1)/width
 
-    im.show()
-    #im.save("gradiente.jpg")
+    #im.show()
+    im.save("randomGradient.jpg")
 
 def colorsHist():
     root = tkinter.Tk()
@@ -165,7 +165,7 @@ def colorsHist():
         for j in range (length-110, length-10):
             im2.putpixel((i, j), colors[z][1] )
 
-        if(i % 150 == 0):
+        if(i % 100 == 0):
             for t in range(-5, 5):
                 for tt in range(length-110, length-10):
                     im2.putpixel((i+t, tt), (255, 255, 255))
@@ -177,13 +177,12 @@ def colorsHist():
     #    plt.bar(idx, c[0], color = rgb2Hex(c[1]), edgecolor = rgb2Hex(c[1]))
     #plt.show()
 
-execfile("randomPalette.py")
 ###############################################################################
 ###############################################################################
 ###############################################################################
 
 
 #superRandomPalette()
-randomPalette()
+#randomPalette()
 #randomGradient()
-#colorsHist()
+colorsHist()
