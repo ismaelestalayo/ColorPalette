@@ -1,6 +1,8 @@
 from PIL import Image, ImageFont, ImageDraw
 import random
 
+from colorthief import ColorThief
+
 import tkinter
 from tkinter.filedialog import askopenfilename
 
@@ -142,26 +144,32 @@ def colorsHist():
     fileName = tkinter.filedialog.askopenfilename()
     im = Image.open(fileName)
     width, length = im.size
-    length += 120
 
-    colors = im.getcolors(1080*720)
+    zz = int(width/8)
+    dy = int(length*0.20)
+    length += dy
+
+    colors = im.getcolors(width*length)
+    # if ((X-X1)^2 + (Y-Y1)^2 + (Z-Z1)^2) <= (Tol^2) then
+    cf = ColorThief(fileName)
+    colors = cf.get_palette(10)
 
     im2 = Image.new("RGB", (width, length), "white")
     im2.paste(im)
 
-    z = 0
+    x = 0
     for i in range (10, width-10):
-        for j in range (length-110, length-10):
-            im2.putpixel((i, j), colors[z][1] )
+        for j in range (length-dy+10, length-10):
+            im2.putpixel((i, j), colors[x] )
 
-        if(i % 100 == 0):
+        if(i % zz == 0):
             for t in range(-5, 5):
-                for tt in range(length-110, length-10):
+                for tt in range(length-dy+10, length-10):
                     im2.putpixel((i+t, tt), (255, 255, 255))
-            z += 1
+            x += 1
 
     im2.show()
-
+    im2.save("mainColors.jpg")
     #for idx, c in enumerate(colors):
     #    plt.bar(idx, c[0], color = rgb2Hex(c[1]), edgecolor = rgb2Hex(c[1]))
     #plt.show()
@@ -173,44 +181,12 @@ def test():
     im = Image.open(fileName)
     width, length = im.size
 
-    def sumarColores(i, j):
-        return ( im.getpixel((i, j))[0]+im.getpixel((i, j))[1]+im.getpixel((i, j))[2] )
+    z = im.getcolors(width*length)
+    z.sort(reverse=True)
 
-    def alrededor(i, j):
-        temp = 0
-        if(sumarColores(i-1, j-1) ):
-            temp += sumarColores(i-1, j-1)
-        if(sumarColores(i-1, j) ):
-            temp += sumarColores(i-1, j)
-        if(sumarColores(i-1, j+1) ):
-            temp += sumarColores(i-1, j+1)
+    print(z)
 
-        if(sumarColores(i, j-1) ):
-            temp += sumarColores(i, j-1)
-        if(sumarColores(i, j) ):
-            temp += sumarColores(i, j)
-        if(sumarColores(i, j+1) ):
-            temp += sumarColores(i, j+1)
-
-        if(sumarColores(i+1, j-1) ):
-            temp += sumarColores(i+1, j-1)
-        if(sumarColores(i+1, j) ):
-            temp += sumarColores(i+1, j)
-        if(sumarColores(i+1, j+1) ):
-            temp += sumarColores(i+1, j+1)
-
-        return temp/8
-
-
-    for i in range (1, width-1):
-        for j in range (1, length-1):
-            if( sumarColores(i, j) - alrededor(i, j) > 200):
-                im.putpixel((i, j), (0, 100, 255))
-
-            else:
-                im.putpixel((i, j), (0, 0, 0))
-
-    im.save("barco200.jpg")
+    #im.save("barco200.jpg")
 
 ###############################################################################
 ###############################################################################
@@ -218,7 +194,7 @@ def test():
 
 
 #superRandomPalette()
-randomPalette()
+#randomPalette()
 #randomGradient()
-#colorsHist()
+colorsHist()
 #test()
