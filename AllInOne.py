@@ -177,6 +177,52 @@ def colorsHist():
     #    plt.bar(idx, c[0], color = rgb2Hex(c[1]), edgecolor = rgb2Hex(c[1]))
     #plt.show()
 
+def test():
+    root = tkinter.Tk()
+    root.withdraw()
+    fileName = tkinter.filedialog.askopenfilename()
+    im = Image.open(fileName)
+    width, length = im.size
+
+    def sumarColores(i, j):
+        return ( im.getpixel((i, j))[0]+im.getpixel((i, j))[1]+im.getpixel((i, j))[2] )
+
+    def alrededor(i, j):
+        temp = 0
+        if(sumarColores(i-1, j-1) ):
+            temp += sumarColores(i-1, j-1)
+        if(sumarColores(i-1, j) ):
+            temp += sumarColores(i-1, j)
+        if(sumarColores(i-1, j+1) ):
+            temp += sumarColores(i-1, j+1)
+
+        if(sumarColores(i, j-1) ):
+            temp += sumarColores(i, j-1)
+        if(sumarColores(i, j) ):
+            temp += sumarColores(i, j)
+        if(sumarColores(i, j+1) ):
+            temp += sumarColores(i, j+1)
+
+        if(sumarColores(i+1, j-1) ):
+            temp += sumarColores(i+1, j-1)
+        if(sumarColores(i+1, j) ):
+            temp += sumarColores(i+1, j)
+        if(sumarColores(i+1, j+1) ):
+            temp += sumarColores(i+1, j+1)
+
+        return temp/8
+
+
+    for i in range (1, width-1):
+        for j in range (1, length-1):
+            if( sumarColores(i, j) - alrededor(i, j) > 200):
+                im.putpixel((i, j), (0, 100, 255))
+
+            else:
+                im.putpixel((i, j), (0, 0, 0))
+
+    im.save("barco200.jpg")
+
 ###############################################################################
 ###############################################################################
 ###############################################################################
@@ -185,4 +231,5 @@ def colorsHist():
 #superRandomPalette()
 #randomPalette()
 #randomGradient()
-colorsHist()
+#colorsHist()
+test()
