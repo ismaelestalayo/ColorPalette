@@ -145,6 +145,44 @@ def colorsHist():
     im = Image.open(fileName)
     width, length = im.size
 
+    zz = int(length/8)
+    dx = int(width*0.20)
+    width += dx
+
+    colors = im.getcolors(width*length)
+    # if ((X-X1)^2 + (Y-Y1)^2 + (Z-Z1)^2) <= (Tol^2) then
+    cf = ColorThief(fileName)
+    colors = cf.get_palette(10)
+
+    im2 = Image.new("RGB", (width, length), "white")
+    im2.paste(im)
+
+    x = 0
+    for j in range (5, length-5):
+        for i in range (width-dx+10, width-10):
+            im2.putpixel((i, j), colors[x] )
+
+        if(j % zz == 0):
+            for t in range(-5, 5):
+                for tt in range(width-dx+10, width-10):
+                    im2.putpixel((tt, j+t), (255, 255, 255))
+            x += 1
+
+    draw = ImageDraw.Draw(im2)
+    font = ImageFont.truetype("arial.ttf", 32)
+    for i in range (0, 8):
+        draw.text((width-dx+(dx*0.05), i*(length/8)+length*0.01), rgb2Hex(colors[i]), (0, 0, 0), font=font)
+
+    im2.show()
+    #im2.save("mainColors.jpg")
+
+def colorsHist2():
+    root = tkinter.Tk()
+    root.withdraw()
+    fileName = tkinter.filedialog.askopenfilename()
+    im = Image.open(fileName)
+    width, length = im.size
+
     zz = int(width/8)
     dy = int(length*0.20)
     length += dy
@@ -169,10 +207,7 @@ def colorsHist():
             x += 1
 
     im2.show()
-    im2.save("mainColors.jpg")
-    #for idx, c in enumerate(colors):
-    #    plt.bar(idx, c[0], color = rgb2Hex(c[1]), edgecolor = rgb2Hex(c[1]))
-    #plt.show()
+    #im2.save("mainColors.jpg")
 
 def test():
     root = tkinter.Tk()
