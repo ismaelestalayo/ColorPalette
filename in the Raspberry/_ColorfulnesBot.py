@@ -1,10 +1,12 @@
 import telebot
 from telebot import types
 import time
+import sys
 
 from PIL import Image, ImageFont, ImageDraw
 import random
 
+TOKEN = "346619541:AAEJXdhfgt-LedjpDr_GOYvO4de9RSkGHmw"
 
 knownUsers = []  # todo: save these in a file,
 userStep = {}  # so they won't reset every time the bot restarts
@@ -39,11 +41,9 @@ def listener(messages):
             # print the sent message to the console
             print str("   >" + m.chat.first_name) + " [" + str(m.chat.id) + "]: " + m.text
 
-
-
 ############################################################################
 def main():
-    bot = telebot.TeleBot("346619541:AAEJXdhfgt-LedjpDr_GOYvO4de9RSkGHmw")
+    bot = telebot.TeleBot(TOKEN)
     bot.set_update_listener(listener)  # register listener
 
  
@@ -75,11 +75,9 @@ def main():
         bot.send_message(cid, help_text)
 
 
-
     @bot.message_handler(func=lambda message: message.text == "Ping")
     def command_text_hi(m):
         bot.send_message(m.chat.id, "Pong")
-
 
 
     @bot.message_handler(commands=['palette'])
@@ -101,8 +99,41 @@ def main():
 
 	bot.send_photo(cid, open('randomGradient.jpg', 'rb'))
 
+   
+    @bot.message_handler(content_types=['photo'])
+    def photo(m):
+        cid = m.chat.id
+        bot.send_message(m.chat.id, "Telegram compressed it. Please send it as a file.")
+	
+	raw = m.photo[0].file_id
+	file_info = bot.get_file(raw)
+	print str(file_info)
+
+
+    @bot.message_handler(content_types=['document'])
+    def photo(m):
+        cid = m.chat.id
+        bot.send_message(m.chat.id, "Photo received.")
+	
+	print("> " + m.document.file_name)	
+	fid = m.document.file_id
+        print(m.document)
+        f = bot.get_file(fid)
+
+        downloadFile = bot.download_file(f.file_path)
+        with open(m.document.file_name, 'wb') as new_file:
+            new_file.write(downloadFile)
+	
+	sys.argv = ['BORRAR', m.document.file_name]
+        execfile("mainColors.py")
+        print("ejecutado...")
+        bot.send_chat_action(cid, "upload_photo")
+        bot.send_photo(cid, open("mainColors.png", 'rb') )	
 
     bot.polling()
+
+    
+    
 
 ############################################################################
 try:
@@ -113,3 +144,6 @@ except KeyboardInterrupt:
     sys.exit(0)
 
     
+
+
+

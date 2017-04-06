@@ -1,5 +1,6 @@
 from PIL import Image, ImageFont, ImageDraw
 
+
 import random
 
 def rgb2Hex(rgb):
@@ -41,15 +42,21 @@ z = width/6
 
 #########################################
 draw = ImageDraw.Draw(im)
-font = ImageFont.truetype("DejaVuSans.ttf", 32)
+font = ImageFont.truetype("DejaVuSans.ttf", 35)
+
 
 for i in range(0, 6):
     draw.rectangle([(i*z, 0),(z+i*z, length)], fill=(r, g, b) )
     draw.text((80+(i*z), length-50), rgb2Hex( im.getpixel((z*i, 0)) ), (0, 0, 0), font=font)
+    
     i += 1
 
     r -= dr
     g -= dg
     b -= db
 
+
+
 im.save("randomPalette.jpg")
+
+
