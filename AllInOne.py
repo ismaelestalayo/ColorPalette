@@ -176,39 +176,6 @@ def colorsHist():
     im2.show()
     #im2.save("mainColors.jpg")
 
-def colorsHist2():
-    root = tkinter.Tk()
-    root.withdraw()
-    fileName = tkinter.filedialog.askopenfilename()
-    im = Image.open(fileName)
-    width, length = im.size
-
-    zz = int(width/8)
-    dy = int(length*0.20)
-    length += dy
-
-    colors = im.getcolors(width*length)
-    # if ((X-X1)^2 + (Y-Y1)^2 + (Z-Z1)^2) <= (Tol^2) then
-    cf = ColorThief(fileName)
-    colors = cf.get_palette(10)
-
-    im2 = Image.new("RGB", (width, length), "white")
-    im2.paste(im)
-
-    x = 0
-    for i in range (10, width-10):
-        for j in range (length-dy+10, length-10):
-            im2.putpixel((i, j), colors[x] )
-
-        if(i % zz == 0):
-            for t in range(-5, 5):
-                for tt in range(length-dy+10, length-10):
-                    im2.putpixel((i+t, tt), (255, 255, 255))
-            x += 1
-
-    im2.show()
-    #im2.save("mainColors.jpg")
-
 def test():
     root = tkinter.Tk()
     root.withdraw()
