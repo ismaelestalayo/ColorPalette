@@ -6,7 +6,7 @@ import sys
 from PIL import Image, ImageFont, ImageDraw
 import random
 
-TOKEN = "346619541:AAEJXdhfgt-LedjpDr_GOYvO4de9RSkGHmw"
+TOKEN = "TOKEN"
 
 knownUsers = []  # todo: save these in a file,
 userStep = {}  # so they won't reset every time the bot restarts
