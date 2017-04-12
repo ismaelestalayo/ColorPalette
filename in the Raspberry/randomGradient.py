@@ -26,7 +26,6 @@ r1 = r0 - 5*randomRGB(r0)
 g1 = g0 - 5*randomRGB(g0)
 b1 = b0 - 5*randomRGB(b0)
 
-
 im = Image.new("RGB", (400, 400), "black");
 width, length = im.size
 
@@ -39,14 +38,9 @@ for i in range (width):
     for j in range (length):
         im.putpixel((i, j), ( int(r), int(g), int(b) ))
 
-
     r -= (r0-r1)/width
     g -= (g0-g1)/width
     b -= (b0-b1)/width
-    
-    if(i % 50 == 0):
-	print("|")
 
 im.save("randomGradient.jpg")
-
-
+#im.show();

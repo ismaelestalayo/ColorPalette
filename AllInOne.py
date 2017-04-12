@@ -188,5 +188,5 @@ def test():
 #superRandomPalette()
 #randomPalette()
 #randomGradient()
-mainColors()
-#test()
+#mainColors()
+test()

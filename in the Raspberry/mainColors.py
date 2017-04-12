@@ -5,8 +5,6 @@ import sys
 file_name = sys.argv[1]
 print("   >mainColors.py " + sys.argv[1])
 
-
-
 def rgb2Hex(rgb):
     r=rgb[0]
     g=rgb[1]
@@ -21,7 +19,7 @@ try:
     dx = int(width*0.20)
     width += dx
 
-    print("   >Calculando colores principales...")
+    print("   >Calculating main colors...")
 
     cf = ColorThief(file_name)
 
@@ -30,7 +28,7 @@ try:
     im2 = Image.new("RGB", (width, length), "white")
     im2.paste(im)
 
-    print("   >Dibujando colores principales...")
+    print("   >Drawing...")
 
     x = 0
 
@@ -54,5 +52,6 @@ try:
     im2.save("mainColors.png")
     im2.close()
     im.close()
+
 except:
-    print("   >Fallo en mainColors.py")
+    print("   >Error in mainColors.py")
