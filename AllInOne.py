@@ -173,12 +173,12 @@ def test():
     im = Image.open(fileName)
     width, length = im.size
 
-    z = im.getcolors(width*length)
+    z = im.getcolors(width * length)
     z.sort(reverse=True)
 
     print(z)
 
-    #im.save("barco200.jpg")
+    # im.save("barco200.jpg")
 
 ###############################################################################
 ###############################################################################
@@ -186,7 +186,7 @@ def test():
 
 
 #superRandomPalette()
-#randomPalette()
+randomPalette()
 #randomGradient()
 #mainColors()
-test()
+#test()
