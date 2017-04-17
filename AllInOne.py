@@ -29,58 +29,6 @@ def randomRGB(x):
     return x
 
 ###############################################################################
-def superRandomPalette():
-
-    im = Image.new("RGB", (900, 600), "black");
-    width, length = im.size
-    z = width/6
-
-    def rgbInit(x):
-        if(x >= 210):
-            x = random.randint(-43, -32)
-        elif(x > 170):
-            x = random.randint(-32, -25)
-        elif(x > 140):
-            x = random.randint(-25, -15)
-        elif(x > 110):
-            x = random.randint(15, 25)
-        elif(x > 80):
-            x = random.randint(25, 32)
-        elif(x >= 0):
-            x = random.randint(32, 43)
-        return x
-
-    r = random.randint(0, 255)
-    dr = rgbInit(r)
-    g = random.randint(0, 255)
-    dg = rgbInit(g)
-    b = random.randint(0, 255)
-    db = rgbInit(b)
-
-    x = 0
-    for i in range (width):
-        for j in range (length):
-            im.putpixel((i, j), (r, g, b))
-
-        if (i % z == 0):
-            r += dr
-            g += dg
-            b += db
-
-
-    colors = im.getcolors()
-    draw = ImageDraw.Draw(im)
-    font = ImageFont.truetype("arial.ttf", 16)
-
-
-    for i in range(0, 6):
-        color = '#%02x%02x%02x' % colors[i][1]
-        draw.text((35+(i*z), length-80), str( colors[i][1]), (0, 0, 0), font=font)
-        draw.text((50+(i*z), length-30), rgb2Hex( colors[i][1]), (0, 0, 0), font=font)
-        i += 1
-
-    im.show()
-
 def randomPalette():
 
     r = random.choice( [ random.choice(range(0, 110)), random.choice(range(160, 255)) ] )
@@ -185,8 +133,7 @@ def test():
 ###############################################################################
 
 
-#superRandomPalette()
-randomPalette()
+#randomPalette()
 #randomGradient()
 #mainColors()
 #test()
