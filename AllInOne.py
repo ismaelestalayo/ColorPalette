@@ -28,6 +28,7 @@ def randomRGB(x):
         x = random.randint(-33, -4)
     return x
 
+
 ###############################################################################
 def randomPalette():
 
