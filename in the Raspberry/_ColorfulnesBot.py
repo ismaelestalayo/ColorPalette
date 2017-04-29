@@ -24,22 +24,13 @@ commands = {
 
 
 
-def get_user_step(uid):
-    if uid in userStep:
-        return userStep[uid]
-
-    else:
-        knownUsers.append(uid)
-        userStep[uid] = 0
-        print "New user detected, who hasn't used \"/start\" yet"
-        return 0
 
 #Outputs the incoming messages in the console
 def listener(messages):
     for m in messages:
         if m.content_type == 'text':
-            # print the sent message to the console
-            print str("   >" + m.chat.first_name) + " [" + str(m.chat.id) + "]: " + m.text
+        	# print the sent message to the console
+			print str("   >" + m.chat.first_name) + " [" + str(m.chat.id) + "]: " + m.text
 
 ############################################################################
 def main():

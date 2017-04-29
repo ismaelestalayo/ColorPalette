@@ -65,10 +65,15 @@ def randomGradient():
     r0 = random.choice( [ random.choice(range(0, 110)), random.choice(range(160, 255)) ] )
     g0 = random.choice( [ random.choice(range(0, 110)), random.choice(range(160, 255)) ] )
     b0 = random.choice( [ random.choice(range(0, 110)), random.choice(range(160, 255)) ] )
-
+    #print(r0)
+    #print(g0)
+    #print(b0)
     r1 = r0 - 5*randomRGB(r0)
     g1 = g0 - 5*randomRGB(g0)
     b1 = b0 - 5*randomRGB(b0)
+    #print(r1)
+    #print(g1)
+    #print(b1)
 
     im = Image.new("RGB", (600, 600), "black");
     width, length = im.size
@@ -84,8 +89,8 @@ def randomGradient():
         g -= (g0-g1)/width
         b -= (b0-b1)/width
 
-    #im.show()
-    im.save("randomGradient.jpg")
+    im.show()
+    #im.save("randomGradient.jpg")
 
 def mainColors():
     root = tkinter.Tk()
@@ -135,6 +140,6 @@ def test():
 ###############################################################################
 
 #randomPalette()
-#randomGradient()
+randomGradient()
 #mainColors()
 #test()
